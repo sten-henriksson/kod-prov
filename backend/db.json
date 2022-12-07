@@ -1,12 +1,1 @@
-[
-    {
-        "url": "https://google.com",
-        "time": 525,
-        "date": "2022-12-07"
-    },
-    {
-        "url": "https://google.com",
-        "time": 597,
-        "date": "2022-12-07"
-    }
-]
+[{"url":"https://google.com","time":525,"date":"2022-12-07"},{"url":"https://google.com","time":597,"date":"2022-12-07"},{"url":"https://kod-prov.vercel.app/","time":657,"date":"2022-12-07"},{"url":"https://google.com","time":553,"date":"2022-12-07"},{"url":"https://google.com","time":549,"date":"2022-12-07"},{"url":"https://google.com","time":552,"date":"2022-12-07"},{"url":"https://google.com","time":641,"date":"2022-12-07"},{"url":"https://google.com","time":865,"date":"2022-12-07"},{"url":"https://google.com","time":766,"date":"2022-12-07"},{"url":"https://google.com","time":1181,"date":"2022-12-07"},{"url":"https://sten-henriksson.com/","time":923,"date":"2022-12-07"},{"url":"https://sten-henriksson.com/","time":664,"date":"2022-12-07"},{"url":"https://sten-henriksson.com/","time":527,"date":"2022-12-07"},{"url":"https://sten-henriksson.com/","time":646,"date":"2022-12-07"}]
