@@ -4,14 +4,21 @@ import { getjson, saveJSON, getSpeed } from './service'
 
 const app = express()
 app.use(express.json())
-app.post(`/scrapedata`, async (req, res) => {
+type ApiElement = {
+    url: String,
+    time: String,
+    date: String
+}
+app.post(`/speedurl`, async (req, res) => {
+    console.log(req.body);
 
     try {
         // run await in parrarel
         const bundledPromise = await Promise.all([getSpeed(req.body.url), getjson()]);
         const speed = bundledPromise[0]
         let json = bundledPromise[1]
-        json.push(speed);
+        const apiele: ApiElement = { url: req.body.url, time: speed, date: "123" }
+        json.push(apiele);
         // save to local db
         saveJSON(json);
         res.sendStatus(200)
@@ -22,7 +29,6 @@ app.post(`/scrapedata`, async (req, res) => {
 })
 
 app.get('/urls', async (req, res) => {
-    const { inctag, disctag } = req.body
     try {
         res.json(await getjson())
     } catch (error) {
@@ -31,7 +37,9 @@ app.get('/urls', async (req, res) => {
     }
 });
 
-
+app.listen(process.env.PORT || 1339, () => {
+    console.log(`Example app listening on port ${process.env.PORT || 1339}`);
+});
 
 // const { firefox } = require('playwright');  // Or 'chromium' or 'webkit'.
 
