@@ -13,7 +13,7 @@ export default function Home() {
   const [data, setData] = useState<ApiElement[]>()
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async data => {
-    const res = await axios.post('http://217.72.52.110:1339/speedurl', data, {
+    const res = await axios.post(process.env.NEXT_PUBLIC_API_ADRESS + '/speedurl', data, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -22,7 +22,7 @@ export default function Home() {
     setData(apiData)
   };
   async function getUrls() {
-    const res = await axios.get('http://217.72.52.110:1339/urls')
+    const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/urls')
     const apiData: ApiElement[] = res.data;
     setData(apiData)
   }
