@@ -78,12 +78,6 @@ const SendUrl = ({ setData }: any) => {
     const apiData: ApiElement[] = res.data;
     setData(apiData)
   };
-  const onSearch: SubmitHandler<FormValues> = async data => {
-    const url = data.url
-    const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/search', { params: { url } })
-    const apiData: ApiElement[] = res.data;
-    setData(apiData)
-  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input {...register("url")} placeholder="enter url with http://" />
