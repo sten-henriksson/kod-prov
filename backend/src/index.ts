@@ -11,17 +11,16 @@ type ApiElement = {
 }
 app.post(`/speedurl`, async (req, res) => {
     console.log(req.body);
-
     try {
-        // run await in parrarel
         const bundledPromise = await Promise.all([getSpeed(req.body.url), getjson()]);
         const speed = bundledPromise[0]
         let json = bundledPromise[1]
-        const apiele: ApiElement = { url: req.body.url, time: speed, date: "123" }
+        var datetime = new Date();
+        const apiele: ApiElement = { url: req.body.url, time: speed, date: datetime.toISOString().slice(0, 10) }
         json.push(apiele);
-        // save to local db
         saveJSON(json);
-        res.sendStatus(200)
+        // reverse to get chronolgical order 
+        res.json(json.reverse())
     } catch (error) {
         console.log("error fetching speed", error);
         res.status(400)
@@ -30,7 +29,7 @@ app.post(`/speedurl`, async (req, res) => {
 
 app.get('/urls', async (req, res) => {
     try {
-        res.json(await getjson())
+        res.json((await getjson()).reverse())
     } catch (error) {
         console.log("cant get data from db", error);
         res.status(400)
