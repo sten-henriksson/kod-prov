@@ -11,7 +11,7 @@ export default function Home() {
     date: string
   }
   const [data, setData] = useState<ApiElement[]>()
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async data => {
     const res = await axios.post(process.env.NEXT_PUBLIC_API_ADRESS + '/speedurl', data, {
       headers: {
@@ -21,7 +21,15 @@ export default function Home() {
     const apiData: ApiElement[] = res.data;
     setData(apiData)
   };
+  const onSearch: SubmitHandler<FormValues> = async data => {
+    reset()
+    const url = data.url
+    const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/search', { params: { url } })
+    const apiData: ApiElement[] = res.data;
+    setData(apiData)
+  };
   async function getUrls() {
+    reset()
     const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/urls')
     const apiData: ApiElement[] = res.data;
     setData(apiData)
@@ -34,6 +42,11 @@ export default function Home() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register("url")} placeholder="enter url with http://" />
         <input type="submit" value="Test Time" />
+      </form>
+      <form onSubmit={handleSubmit(onSearch)}>
+        <input {...register("url")} placeholder="search" />
+        <input type="submit" value="search" />
+
       </form>
       <table>
         <thead>

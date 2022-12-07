@@ -1,1 +1,12 @@
-[{"url":"https://www.google.com/","time":440,"date":"123"},{"url":"https://sten-henriksson.com/","time":335,"date":"123"},{"url":"https://www.facebook.com/","time":988,"date":"123"},{"url":"https://mail.google.com","time":948.0000000000001,"date":"123"},{"url":"https://google.com","time":525,"date":"2022-12-07"},{"url":"https://google.com","time":597,"date":"2022-12-07"}]
+[
+    {
+        "url": "https://google.com",
+        "time": 525,
+        "date": "2022-12-07"
+    },
+    {
+        "url": "https://google.com",
+        "time": 597,
+        "date": "2022-12-07"
+    }
+]

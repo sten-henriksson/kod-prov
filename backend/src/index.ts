@@ -35,7 +35,20 @@ app.get('/urls', async (req, res) => {
         res.status(400)
     }
 });
+app.get('/search', async (req, res) => {
+    try {
 
+        const dbResults = await getjson()
+        if (req.query?.url != undefined) {
+            let reqQuery = req.query?.url.toString();
+            const result = dbResults.filter(({ url }) => url.includes(reqQuery));
+            res.json(result)
+        }
+    } catch (error) {
+
+        res.status(400)
+    }
+});
 app.listen(process.env.PORT || 1339, () => {
     console.log(`Example app listening on port ${process.env.PORT || 1339}`);
 });
