@@ -16,26 +16,19 @@
 
 # back
 > mvc
+
 > spawn: playwrigh service that checks loadtime
+
 > post: creat browser instance then load url. save load-time time-ran to json file
+
 
 
 # front
 > at-start get list of tests ran
+
 > text-input.
+
 > searchbox of prev tests
+
 > list with refresh to update list  
 
-
-
-To get started, cd into the new directory:
-  cd frontend
-
-To start a development live-reload server:
-  npm run dev
-
-To create a production build (in ./build):
-  npm run build
-
-To start a production HTTP/2 server:
-  npm run serve
