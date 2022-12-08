@@ -1,17 +1,14 @@
 import fs from 'fs';
-import { promisify } from 'util'
-import { webkit } from '@playwright/test'
-const readFileAsync = promisify(fs.readFile)
-type ApiElement = {
-    url: String,
-    time: String,
-    date: String
-}
+import { promisify } from 'util';
+import { webkit } from '@playwright/test';
+import { ApiElement } from '../types/type';
+const readFileAsync = promisify(fs.readFile);
+
 export async function getjson(): Promise<ApiElement[]> {
-    const res = await readFileAsync('./db.json')
-    return JSON.parse(res.toString());
+    const res = await readFileAsync('./db.json');
+    return JSON.parse(res.toString()) as ApiElement[];
 }
-export async function saveJSON(json: any) {
+export function saveJSON(json: any) {
     const data = JSON.stringify(json);
     // write JSON string to a file
     fs.writeFile('./db.json', data, (err) => {
@@ -28,8 +25,8 @@ export async function getSpeed(url: string): Promise<string> {
     const page = await browser.newPage();
     await page.goto(url);
     const navigationTimingJson = await page.evaluate(() =>
-        JSON.stringify(performance.getEntriesByType('navigation'))
-    )
-    const navigationTiming = JSON.parse(navigationTimingJson)
-    return navigationTiming[0].duration
+        JSON.stringify(performance.getEntriesByType('navigation')),
+    );
+    const navigationTiming = JSON.parse(navigationTimingJson) as string;
+    return navigationTiming[0].duration;
 }
