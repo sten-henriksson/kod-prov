@@ -6,12 +6,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.post(`/speedurl`, async (req, res) => {
+  //spawns playwright to get speed of url. 
   try {
-    const bundledPromise = await Promise.all([getSpeed(req.body.url), getjson()]);
+    type req_body = {
+      url: string
+    }
+    const req_bod = req.body as req_body;
+    const url = req_bod.url;
+    const bundledPromise = await Promise.all([getSpeed(url), getjson()]);
     const speed = bundledPromise[0];
     const json = bundledPromise[1];
     const datetime = new Date();
-    const apiele: ApiElement = { url: req.body.url, time: speed, date: datetime.toISOString().slice(0, 10) };
+    const apiele: ApiElement = { url: url, time: speed, date: datetime.toISOString().slice(0, 10) };
     json.push(apiele);
     saveJSON(json);
     // reverse to get chronolgical order 
@@ -23,6 +29,7 @@ app.post(`/speedurl`, async (req, res) => {
 });
 
 app.get('/urls', async (req, res) => {
+  //fetch array from db.json
   try {
     res.json((await getjson()).reverse());
   } catch (error) {
@@ -31,8 +38,8 @@ app.get('/urls', async (req, res) => {
   }
 });
 app.get('/search', async (req, res) => {
+  //just filter an array for including text on each element
   try {
-
     const dbResults = await getjson();
     if (req.query?.url != undefined) {
       const reqQuery = req.query?.url.toString();
@@ -40,7 +47,6 @@ app.get('/search', async (req, res) => {
       res.json(result);
     }
   } catch (error) {
-
     res.status(400);
   }
 });
