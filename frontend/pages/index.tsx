@@ -21,6 +21,7 @@ export default function Home() {
         <thead>
           <tr>
             <th>url</th>
+            <th>match</th>
             <th>time</th>
             <th>date</th>
           </tr>
@@ -31,6 +32,9 @@ export default function Home() {
               return <tr key={index}>
                 <td>
                   {x.url}
+                </td>
+                <td>
+                  {x.matches}
                 </td>
                 <td>
                   {parseInt(x.time) + "ms"

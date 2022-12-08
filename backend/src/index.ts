@@ -9,15 +9,17 @@ app.post(`/speedurl`, async (req, res) => {
   //spawns playwright to get speed of url. 
   try {
     type req_body = {
-      url: string
+      url: string,
+      match: string
     }
     const req_bod = req.body as req_body;
     const url = req_bod.url;
-    const bundledPromise = await Promise.all([getSpeed(url), getjson()]);
+    const match = req_bod.match;
+    const bundledPromise = await Promise.all([getSpeed(url, match), getjson()]);
     const speed = bundledPromise[0];
     const json = bundledPromise[1];
     const datetime = new Date();
-    const apiele: ApiElement = { url: url, time: speed, date: datetime.toISOString().slice(0, 10) };
+    const apiele: ApiElement = { url: url, time: speed[0], matches: speed[1], date: datetime.toISOString().slice(0, 10) };
     json.push(apiele);
     saveJSON(json);
     // reverse to get chronolgical order 

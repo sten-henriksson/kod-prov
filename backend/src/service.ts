@@ -20,16 +20,20 @@ export function saveJSON(json: ApiElement[]): void {
 }
 
 
-export async function getSpeed(url: string): Promise<string> {
+export async function getSpeed(url: string, match: string): Promise<string[]> {
   const browser = await webkit.launch();
   const page = await browser.newPage();
   await page.goto(url);
+  const htmlstring = await page.content();
+  const searchStr = match;
+  const indexes = [...htmlstring.matchAll(new RegExp(searchStr, 'gi'))].map(a => a.index);
+  console.log(indexes.length);
   const navigationTimingJson = await page.evaluate(() =>
     JSON.stringify(performance.getEntriesByType('navigation')),
   );
-    type navigationPeformance = {
-        duration: string,
-    }
-    const navigationTiming = JSON.parse(navigationTimingJson) as navigationPeformance[];
-    return navigationTiming[0].duration;
+  type navigationPeformance = {
+    duration: string,
+  }
+  const navigationTiming = JSON.parse(navigationTimingJson) as navigationPeformance[];
+  return [navigationTiming[0].duration, indexes.length.toString()];
 }

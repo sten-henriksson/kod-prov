@@ -4,7 +4,8 @@ import { ApiElement } from '../types/types';
 
 export const SendUrl = ({ setData }: any) => {
     type FormValues = {
-        url: String;
+        url: string;
+        match:string
     };
     const { register, handleSubmit } = useForm<FormValues>();
     const onSubmit: SubmitHandler<FormValues> = async data => {
@@ -20,6 +21,7 @@ export const SendUrl = ({ setData }: any) => {
 
         <form onSubmit={handleSubmit(onSubmit)} >
             <input {...register("url")} placeholder="enter url with http://" />
+            <input {...register("match")} placeholder="what to match" />
             <input type="submit" value="Test Time" />
         </form>
 
