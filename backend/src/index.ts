@@ -19,7 +19,7 @@ app.post(`/speedurl`, async (req, res) => {
     const speed = bundledPromise[0];
     const json = bundledPromise[1];
     const datetime = new Date();
-    const apiele: ApiElement = { url: url, time: speed[0], matches: speed[1], date: datetime.toISOString().slice(0, 10) };
+    const apiele: ApiElement = { url: url, time: speed[0], matches: speed[1], date: datetime.toISOString().slice(0, 10), keyword: req_bod.match };
     json.push(apiele);
     saveJSON(json);
     // reverse to get chronolgical order 

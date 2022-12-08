@@ -3,4 +3,5 @@ export type ApiElement = {
     time: string,
     matches:string
     date: string
+    keyword:string
 }
