@@ -6,9 +6,10 @@ import Head from 'next/head';
 export default function Home() {
   const [data, setData] = useState<ApiElement[]>();
   async function getUrls() {
-    const res = await axios.get("/urls");
+    const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/urls');
     const apiData: ApiElement[] = res.data;
     setData(apiData);
+
   };
   useEffect(() => {
     getUrls();
