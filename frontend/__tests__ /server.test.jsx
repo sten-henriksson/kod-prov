@@ -6,7 +6,7 @@ import '@testing-library/jest-dom'
 import Home from '../pages/index'
 
 const server = setupServer(
-    rest.get('/urls', (req, res, ctx) => {
+    rest.get(process.env.NEXT_PUBLIC_API_ADRESS + '/urls', (req, res, ctx) => {
         return res(ctx.json([{ url: "url1", matches: "matches1", keyword: "keyword1", time: "4201", date: "0001.1.1" }]))
     }),
 )
