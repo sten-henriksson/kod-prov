@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { SearchComp, SendUrl } from '../components/input';
 import { ApiElement } from '../types/types';
+import Head from 'next/head';
 export default function Home() {
   const [data, setData] = useState<ApiElement[]>();
   async function getUrls() {
