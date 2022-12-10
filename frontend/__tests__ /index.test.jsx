@@ -7,7 +7,6 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 
 describe('Home', () => {
     it('check for text', () => {
-
         render(<Home />)
         const heading = screen.getByText("url");
         expect(heading).toBeInTheDocument()
