@@ -38,7 +38,7 @@ export const SearchComp = ({ setData }: any) => {
     const { register, handleSubmit } = useForm<SearchValues>();
     const onSearch: SubmitHandler<SearchValues> = async data => {
         const url = data.url
-        const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/search', { params: { url } })
+        const res = await axios.get(process.env.NEXT_PUBLIC_API_ADRESS + '/search', { params: { url:url } })
         const apiData: ApiElement[] = res.data;
         setData(apiData);
     };
