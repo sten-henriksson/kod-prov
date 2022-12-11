@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import express from 'express';
-import { getjson, saveJSON, getSpeed } from './service';
 import cors from 'cors';
 import { ApiElement } from '../types/type';
+import { getUrls, urlSearch, testSpeed } from './controller';
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -13,17 +14,11 @@ app.post(`/speedurl`, async (req, res) => {
       match: string
     }
     const req_bod = req.body as req_body;
-    const url = req_bod.url;
-    const match = req_bod.match;
-    const bundledPromise = await Promise.all([getSpeed(url, match), getjson()]);
-    const speed = bundledPromise[0];
-    const json = bundledPromise[1];
-    const datetime = new Date();
-    const apiele: ApiElement = { url: url, time: speed[0], matches: speed[1], date: datetime.toISOString().slice(0, 10), keyword: req_bod.match };
-    json.push(apiele);
-    saveJSON(json);
+    const url: string = req_bod.url;
+    const match: string = req_bod.match;
+    const speedReturn: ApiElement[] = await testSpeed(url, match);
     // reverse to get chronolgical order 
-    res.json(json.reverse());
+    res.json(speedReturn.reverse());
   } catch (error) {
     console.log("error fetching speed", error);
     res.status(400);
@@ -33,7 +28,7 @@ app.post(`/speedurl`, async (req, res) => {
 app.get('/urls', async (req, res) => {
   //fetch array from db.json
   try {
-    res.json((await getjson()).reverse());
+    res.json(await getUrls());
   } catch (error) {
     console.log("cant get data from db", error);
     res.status(400);
@@ -42,11 +37,9 @@ app.get('/urls', async (req, res) => {
 app.get('/search', async (req, res) => {
   //just filter an array for including text on each element
   try {
-    const dbResults = await getjson();
     if (req.query?.url != undefined) {
       const reqQuery = req.query?.url.toString();
-      const result = dbResults.filter(({ url }) => url.includes(reqQuery));
-      res.json(result);
+      res.json(await urlSearch(reqQuery));
     }
   } catch (error) {
     res.status(400);
