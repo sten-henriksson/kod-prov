@@ -12,10 +12,10 @@ import { ApiElement } from 'types/type';
 
 export async function getUrls(): Promise<ApiElement[]> {
     const json: ApiElement[] = await getjson();
-    if (!json.length) {
-        const a: ApiElement = { url: "No urls availabe", time: "0", matches: "0", date: "0", keyword: "false" };
-        return [a];
-    }
+    // if (!json.length) {
+    //     const a: ApiElement = { url: "No urls availabe", time: "0", matches: "0", date: "0", keyword: "false" };
+    //     return [a];
+    // }
     return json.reverse();
 }
 
