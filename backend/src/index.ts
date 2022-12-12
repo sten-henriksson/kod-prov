@@ -1,11 +1,8 @@
 /* eslint-disable max-len */
-import express from 'express';
-import cors from 'cors';
+import app from './app';
 import { ApiElement } from '../types/type';
 import { getUrls, urlSearch, testSpeed } from './controller';
-const app = express();
-app.use(express.json());
-app.use(cors());
+
 app.post(`/speedurl`, async (req, res) => {
   //spawns playwright to get speed of url. 
   try {
