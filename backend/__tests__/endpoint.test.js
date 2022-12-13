@@ -16,4 +16,13 @@ describe("GET / - a simple api endpoint", () => {
     });
 });
 
+describe("GET / - a simple api endpoint", () => {
+    it("Hello API Request", async () => {
+        const res = await request(app)
+            .get("/search").query({url:"facebook"})
+        console.log(res.body);
+        expect(res.statusCode).toEqual(200);
+        expect(typeof res.body[0].url).toEqual("string")
+    });
+});
 
