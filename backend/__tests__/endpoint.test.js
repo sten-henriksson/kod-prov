@@ -5,24 +5,32 @@
 
 import app from "../src/app"
 import request from "supertest";
+import { expect } from "@playwright/test";
 
-describe("GET / - a simple api endpoint", () => {
+describe("get all db", () => {
     it("Hello API Request", async () => {
         const res = await request(app)
             .get("/urls")
-        console.log(typeof res.body[0].url);
         expect(res.statusCode).toEqual(200);
         expect(typeof res.body[0].url).toEqual("string")
     });
 });
 
-describe("GET / - a simple api endpoint", () => {
+describe("search quary", () => {
     it("Hello API Request", async () => {
         const res = await request(app)
-            .get("/search").query({url:"facebook"})
-        console.log(res.body);
+            .get("/search").query({ url: "https://www.facebook.com/" })
         expect(res.statusCode).toEqual(200);
         expect(typeof res.body[0].url).toEqual("string")
     });
 });
 
+describe("post request", () => {
+    it("Hello API Request", async () => {
+        const res = await request(app)
+            .post("/speedurl").send({ url: "https://www.blocket.se/", match: "face" })
+        expect(res.statusCode).toEqual(200);
+        expect(res.body[0].url).toEqual("https://www.blocket.se/")
+        expect(parseInt(res.body[0].matches)).toBeGreaterThan(-1)
+    });
+});

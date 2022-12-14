@@ -15,7 +15,6 @@ export function saveJSON(json: ApiElement[]): void {
     if (err) {
       throw err;
     }
-    console.log("JSON data is saved.");
   });
 }
 
@@ -27,7 +26,6 @@ export async function getSpeed(url: string, match: string): Promise<string[]> {
   const htmlstring = await page.content();
   const searchStr = match;
   const indexes = [...htmlstring.matchAll(new RegExp(searchStr, 'gi'))].map(a => a.index);
-  console.log(indexes.length);
   const navigationTimingJson = await page.evaluate(() =>
     JSON.stringify(performance.getEntriesByType('navigation')),
   );
