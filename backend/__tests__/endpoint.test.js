@@ -8,7 +8,7 @@ import request from "supertest";
 import { expect } from "@playwright/test";
 
 describe("get all db", () => {
-    it("Hello API Request", async () => {
+    it("/urls", async () => {
         const res = await request(app)
             .get("/urls")
         expect(res.statusCode).toEqual(200);
@@ -17,7 +17,7 @@ describe("get all db", () => {
 });
 
 describe("search quary", () => {
-    it("Hello API Request", async () => {
+    it("/search", async () => {
         const res = await request(app)
             .get("/search").query({ url: "https://www.facebook.com/" })
         expect(res.statusCode).toEqual(200);
@@ -26,7 +26,7 @@ describe("search quary", () => {
 });
 
 describe("post request", () => {
-    it("Hello API Request", async () => {
+    it("/speedurl", async () => {
         const res = await request(app)
             .post("/speedurl").send({ url: "https://www.blocket.se/", match: "face" })
         expect(res.statusCode).toEqual(200);
