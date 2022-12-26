@@ -28,9 +28,9 @@ describe("search quary", () => {
 describe("post request", () => {
     it("/speedurl", async () => {
         const res = await request(app)
-            .post("/speedurl").send({ url: "https://www.blocket.se/", match: "face" })
+            .post("/speedurl").send({ url: "https://www.facebook.com/", match: "face" })
         expect(res.statusCode).toEqual(200);
-        expect(res.body[0].url).toEqual("https://www.blocket.se/")
+        expect(res.body[0].url).toEqual("https://www.facebook.com/")
         expect(parseInt(res.body[0].matches)).toBeGreaterThan(-1)
     });
 });

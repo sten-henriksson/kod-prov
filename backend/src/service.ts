@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { promisify } from 'util';
-import { webkit } from '@playwright/test';
+import { firefox } from '@playwright/test';
 import { ApiElement } from '../types/type';
 const readFileAsync = promisify(fs.readFile);
 
@@ -20,7 +20,7 @@ export function saveJSON(json: ApiElement[]): void {
 
 
 export async function getSpeed(url: string, match: string): Promise<string[]> {
-  const browser = await webkit.launch();
+  const browser = await firefox.launch();
   const page = await browser.newPage();
   await page.goto(url);
   const htmlstring = await page.content();

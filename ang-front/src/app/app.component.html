@@ -1,0 +1,14 @@
+
+<input type="text" [(ngModel)]="urlToSend" id="hero-post">
+<button type="button" (click)="sendUrl(urlToSend)">
+  search
+</button>
+<input type="text" [(ngModel)]="searchInput" id="hero-name">
+<button type="button" (click)="search(searchInput)">
+  test url
+</button>
+<li *ngFor="let listElement of apiList">
+  {{listElement.url}}
+  {{listElement.time+"ms "}}
+  {{listElement.date}}
+</li>
